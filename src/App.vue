@@ -1,14 +1,22 @@
 <template>
   <div id="app">
+    <vue-select v-model="color" :options="colors" multiple />
   </div>
 </template>
 
 <script>
+import VueSelect from './components/select/VueSelect'
 
 export default {
   name: 'App',
   components: {
-
+    VueSelect
+  },
+  data () {
+    return {
+      colors: ['red', 'green', 'blue'],
+      color: ['red', 'blue']
+    }
   }
 }
 </script>
