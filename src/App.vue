@@ -15,7 +15,7 @@ export default {
   data () {
     return {
       colors: ['red', 'green', 'blue'],
-      color: ['red', 'blue']
+      color: []
     }
   }
 }

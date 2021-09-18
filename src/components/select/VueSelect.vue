@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!error">
     <p>
       {{ value | selected }}
     </p>
@@ -41,7 +41,8 @@ export default {
     return {
       search: '',
       selected: null,
-      selectedMultiple: []
+      selectedMultiple: [],
+      error: false
     }
   },
   computed: {
@@ -65,7 +66,9 @@ export default {
       }
     }
   },
-  mounted () {
+  created () {
+    this.validateInputs()
+
     this.internalValue = this.value
   },
   methods: {
@@ -97,6 +100,18 @@ export default {
       }
 
       return selectedOption === this.selected
+    },
+    validateInputs () {
+      const invalidInput = this.multiple && !(this.value instanceof Array)
+      const invalidMode = this.value instanceof Array && !this.multiple
+
+      this.error = invalidMode || invalidInput
+
+      if (invalidInput) {
+        throw new Error('Invalid value input. Expected array value for multiple mode.')
+      } else if(invalidMode) {
+        throw new Error('Invalid mode. Expected non array value for single mode.')
+      }
     }
   }
 }
